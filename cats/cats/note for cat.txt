@@ -1,0 +1,49 @@
+Pro 1.
+pick(paragraphs, select, k)
+选择select后的para中第k个符合的文本（k从0开始），若没找到返回空字符串
+Pro 2.
+about(subject)
+返回一个select函数（用于pick中），检查pick中的para是否含有subject中的元素
+1.忽略大小写
+2.忽略标点符号
+3.寻找精确匹配而不是子字符串匹配
+Pro3.
+accuracy(typed, source)
+返回typed段落中与source段落中出现相应单词的百分比（完全匹配，包括大小写、标点符号以及对应的索引）
+1.若typed比source长，typed就一定有source中没有的单词，而长的部分不属于source
+2.typed是空字符串但source不是，直接0%，因为typed中没有与source中对应的元素
+总之是以source作为标准，看看typed中有多少跟source中对应
+3. accuracy("a b \tc" , "a b c") \t是换行符，不属于文字，返回100.0
+！！返回浮点数！！
+Pro4.
+wpm(typed, elapsed)
+（word-pre-minute）返回每分钟打字的的个数，注意，这里分子计算公式是（字符数（包括空格））/5
+！！返回的是浮点数！！
+Pro5.
+autocorrect(typed_word, word_list, diff_function, limit)
+返回word_list中最符合typed_word的单词（通过diff_func）
+0.diff_func(typed_word, word_list, diff_function, limit)
+1.通过diff_func返回的数字寻找差异最小的单词，如果typed_word就在word_list中直接返回typed_word
+2.如果遍历完word_list中的单词而所有的单词的差异都大于limit则返回typed_word
+3.假设typed_word跟word_list中的元素都是小写且没有标点符号
+4.若在word_list中找到多个符合最小差异的词，则返回索引最小的那个单词
+Pro6.
+furry_fixes(typed, source, limit)
+一种diff_func，返回要将typed_word转为source单词需要的操作数
+1.当需要的操作数超过limit时，只需返回limit+1即可，因为此时后续的操作数已经不再重要，typed_word不会被进行操作
+！！使用递归，不得使用循环语句！！
+Pro7.
+minimum_mewtations(typed, source, limit)
+也是一种diff_dunc，返回要将typed_word转化为source单词需要的最小操作数
+1.当需要的操作数超过limit时，停止递归
+！！使用递归！！
+Pro8.
+report_progress(typed, source, user_id, upload)
+每当用户输入一个单词后调用该函数进行数据上传bin并返回进度（正确输入的单词在第一个错误单词之前/source的总单词数）
+1.typed的词不会多于source
+Pro9.
+time_per_word(words, timestamps_per_player)
+返回一个字典，储存words以及每个玩家输入字符需要的时间，timestamps_per_players中的第0个数字代表开始时间
+Pro10.
+fastest_words(words_and_times)
+返回一个每个玩家用时最短的单词
